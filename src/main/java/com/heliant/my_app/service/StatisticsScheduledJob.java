@@ -20,7 +20,7 @@ public class StatisticsScheduledJob {
         this.statisticsRepository = statisticsRepository;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void createStatisticsForLastDay(){
         final LocalDateTime startDateTime = LocalDate.now().minusDays(1).atTime(0,0,0);
         final LocalDateTime endDateTime = LocalDate.now().atTime(0,0,0);

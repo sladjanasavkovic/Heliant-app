@@ -44,7 +44,7 @@ public class DocumentService {
     public DocumentResponse get(final Integer id) {
         return documentRepository.findById(id)
                 .map(document -> documentMapper.mapToDTO(document))
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Document not found."));
     }
 
     public DocumentResponse create(final DocumentRequest documentRequest) {
@@ -53,7 +53,8 @@ public class DocumentService {
     }
 
     public DocumentResponse update(final Integer id, final DocumentRequest documentRequest) {
-        final Document document = documentRepository.findById(id).orElseThrow(() -> new NotFoundException("Document not found"));
+        final Document document = documentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Document not found"));
         document.setName(documentRequest.getName());
         return documentMapper.mapToDTO(documentRepository.save(document));
     }
@@ -66,7 +67,8 @@ public class DocumentService {
 
     private ReferencedWarning getReferencedWarning(final Integer id) {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
-        final Document document = documentRepository.findById(id).orElseThrow(() -> new NotFoundException("Document not found"));
+        final Document document = documentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Document not found"));
         final SubmittedDocument documentSubmittedDocument = submittedDocumentRepository.findFirstByDocument(document);
         if (documentSubmittedDocument != null) {
             referencedWarning.setKey("document.submittedDocument.document.referenced");

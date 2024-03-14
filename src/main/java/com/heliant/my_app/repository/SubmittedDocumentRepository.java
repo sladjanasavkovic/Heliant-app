@@ -16,8 +16,9 @@ public interface SubmittedDocumentRepository extends JpaRepository<SubmittedDocu
 
     SubmittedDocument findFirstByDocument(Document document);
 
-    @Query(nativeQuery = true,
-            value = "select count(*) from submitted_documents sd where sd.date_created BETWEEN :startDateTime AND :endDateTime")
+    @Query(nativeQuery = true, value = """
+            select count(*) from submitted_documents sd where sd.date_created BETWEEN :startDateTime AND :endDateTime
+            """)
     Integer countSubmittedDocumentForLastDay(@Param("startDateTime") LocalDateTime startDateTime,
                                              @Param("endDateTime") LocalDateTime endDateTime);
 
@@ -31,10 +32,10 @@ public interface SubmittedDocumentRepository extends JpaRepository<SubmittedDocu
 
     @Override
     @Query(value = """
-                                select sd from SubmittedDocument sd
-                                left join fetch sd.submittedDocumentFields sdf
-                                left join fetch sdf.documentField
-                                where sd.id = :id
+            select sd from SubmittedDocument sd
+            left join fetch sd.submittedDocumentFields sdf
+            left join fetch sdf.documentField
+            where sd.id = :id
             """)
     Optional<SubmittedDocument> findById(@Param("id") Integer id);
 

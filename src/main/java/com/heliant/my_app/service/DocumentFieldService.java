@@ -45,7 +45,7 @@ public class DocumentFieldService {
     public DocumentFieldResponse get(final Integer id) {
         return documentFieldRepository.findById(id)
                 .map(documentFieldMapper::mapToDTO)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Document field not found."));
     }
 
     public DocumentFieldResponse create(final DocumentFieldRequest documentFieldRequest) {
@@ -54,8 +54,10 @@ public class DocumentFieldService {
     }
 
     public DocumentFieldResponse update(final Integer id, final DocumentFieldRequest documentFieldRequest) {
-        final DocumentField documentField = documentFieldRepository.findById(id).orElseThrow(NotFoundException::new);
-        final Document document = documentRepository.findById(documentFieldRequest.getDocument()).orElseThrow(NotFoundException::new);
+        final DocumentField documentField = documentFieldRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Document field not found."));
+        final Document document = documentRepository.findById(documentFieldRequest.getDocument())
+                .orElseThrow(() -> new NotFoundException("Document not found."));
 
         documentField.setName(documentFieldRequest.getName());
         documentField.setType(documentFieldRequest.getType());
@@ -72,7 +74,8 @@ public class DocumentFieldService {
 
     private ReferencedWarning getReferencedWarning(final Integer id) {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
-        final DocumentField documentField = documentFieldRepository.findById(id).orElseThrow(() -> new NotFoundException("Document field not found."));
+        final DocumentField documentField = documentFieldRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Document field not found."));
         final SubmittedDocumentField documentFieldSubmittedDocumentField = submittedDocumentFieldRepository.findFirstByDocumentField(documentField);
         if (documentFieldSubmittedDocumentField != null) {
             referencedWarning.setKey("documentField.submittedDocumentField.documentField.referenced");
