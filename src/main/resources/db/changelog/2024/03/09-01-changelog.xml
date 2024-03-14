@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.26.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1710024411788-1" author="pc (generated)">
+        <createTable tableName="document_fields">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_documentfields"/>
+            </column>
+            <column name="document_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_number" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1710024411788-2" author="pc (generated)">
+        <createTable tableName="documents">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_documents"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1710024411788-3" author="pc (generated)">
+        <createTable tableName="statistics">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_statistics"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="submitted_document_count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1710024411788-4" author="pc (generated)">
+        <createTable tableName="submitted_document_fields">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_submitteddocumentfields"/>
+            </column>
+            <column name="submitted_document_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="document_field_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text_value" type="VARCHAR(255)"/>
+            <column name="numeric_value" type="DECIMAL(10, 2)"/>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1710024411788-5" author="pc (generated)">
+        <createTable tableName="submitted_documents">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_submitteddocuments"/>
+            </column>
+            <column name="document_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1710024411788-6" author="pc (generated)">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1710024411788-7" author="pc (generated)">
+        <addUniqueConstraint columnNames="username" constraintName="uc_users_username" tableName="users"/>
+    </changeSet>
+    <changeSet id="1710024411788-8" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="document_id" baseTableName="document_fields"
+                                 constraintName="FK_DOCUMENTFIELDS_ON_DOCUMENT" referencedColumnNames="id"
+                                 referencedTableName="documents"/>
+    </changeSet>
+    <changeSet id="1710024411788-9" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="document_field_id" baseTableName="submitted_document_fields"
+                                 constraintName="FK_SUBMITTEDDOCUMENTFIELDS_ON_DOCUMENT_FIELD"
+                                 referencedColumnNames="id" referencedTableName="document_fields"/>
+    </changeSet>
+    <changeSet id="1710024411788-10" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="submitted_document_id" baseTableName="submitted_document_fields"
+                                 constraintName="FK_SUBMITTEDDOCUMENTFIELDS_ON_SUBMITTED_DOCUMENT"
+                                 referencedColumnNames="id" referencedTableName="submitted_documents"/>
+    </changeSet>
+    <changeSet id="1710024411788-11" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="document_id" baseTableName="submitted_documents"
+                                 constraintName="FK_SUBMITTEDDOCUMENTS_ON_DOCUMENT" referencedColumnNames="id"
+                                 referencedTableName="documents"/>
+    </changeSet>
+
+</databaseChangeLog>

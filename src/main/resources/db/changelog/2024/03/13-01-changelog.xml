@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.26.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1710332154336-1" author="pc (generated)">
+        <addColumn tableName="document_fields">
+            <column name="created_by_id" type="INT"/>
+            <column name="modified_by_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1710332154336-2" author="pc (generated)">
+        <addColumn tableName="submitted_document_fields">
+            <column name="created_by_id" type="INT"/>
+            <column name="modified_by_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1710332154336-3" author="pc (generated)">
+        <addColumn tableName="submitted_documents">
+            <column name="created_by_id" type="INT"/>
+            <column name="modified_by_id" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1710332154336-7" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="document_fields"
+                                 constraintName="FK_DOCUMENTFIELDS_ON_CREATED_BY" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1710332154336-8" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="modified_by_id" baseTableName="document_fields"
+                                 constraintName="FK_DOCUMENTFIELDS_ON_MODIFIED_BY" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1710332154336-9" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="submitted_document_fields"
+                                 constraintName="FK_SUBMITTEDDOCUMENTFIELDS_ON_CREATED_BY" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1710332154336-10" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="modified_by_id" baseTableName="submitted_document_fields"
+                                 constraintName="FK_SUBMITTEDDOCUMENTFIELDS_ON_MODIFIED_BY" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1710332154336-11" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="submitted_documents"
+                                 constraintName="FK_SUBMITTEDDOCUMENTS_ON_CREATED_BY" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1710332154336-12" author="pc (generated)">
+        <addForeignKeyConstraint baseColumnNames="modified_by_id" baseTableName="submitted_documents"
+                                 constraintName="FK_SUBMITTEDDOCUMENTS_ON_MODIFIED_BY" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>
